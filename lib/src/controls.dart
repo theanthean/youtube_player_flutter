@@ -103,15 +103,15 @@ class BottomBar extends StatefulWidget {
   final ValueNotifier<bool> showControls;
   final double aspectRatio;
   final ProgressColors progressColors;
-  final bool hideFullScreenButton;
+  final bool hideFullScreenButton, hidePlaybackRateButton;
 
   BottomBar(
-    this.controller,
-    this.showControls,
-    this.aspectRatio,
-    this.progressColors,
-    this.hideFullScreenButton,
-  );
+      this.controller,
+      this.showControls,
+      this.aspectRatio,
+      this.progressColors,
+      this.hideFullScreenButton,
+      this.hidePlaybackRateButton);
 
   @override
   _BottomBarState createState() => _BottomBarState();
@@ -196,32 +196,34 @@ class _BottomBarState extends State<BottomBar> {
               fontSize: 12.0,
             ),
           ),
-          Theme(
-            data: Theme.of(context).copyWith(
-              cardColor: Colors.black,
-            ),
-            child: PopupMenuButton<PlaybackRate>(
-              onSelected: controller.setPlaybackRate,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
-                child: Image.asset(
-                  'assets/speedometer.png',
-                  package: 'youtube_player_flutter',
-                  width: 20.0,
-                  height: 20.0,
-                  color: Colors.white,
+          widget.hidePlaybackRateButton
+              ? Container()
+              : Theme(
+                  data: Theme.of(context).copyWith(
+                    cardColor: Colors.black,
+                  ),
+                  child: PopupMenuButton<PlaybackRate>(
+                    onSelected: controller.setPlaybackRate,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
+                      child: Image.asset(
+                        'assets/speedometer.png',
+                        package: 'youtube_player_flutter',
+                        width: 20.0,
+                        height: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    tooltip: 'PlayBack Rate',
+                    itemBuilder: (context) => [
+                      _popUpItem('2.0', PlaybackRate.DOUBLE),
+                      _popUpItem('1.5', PlaybackRate.ONE_AND_A_HALF),
+                      _popUpItem('1.0', PlaybackRate.NORMAL),
+                      _popUpItem('0.5', PlaybackRate.HALF),
+                      _popUpItem('0.25', PlaybackRate.QUARTER),
+                    ],
+                  ),
                 ),
-              ),
-              tooltip: 'PlayBack Rate',
-              itemBuilder: (context) => [
-                _popUpItem('2.0', PlaybackRate.DOUBLE),
-                _popUpItem('1.5', PlaybackRate.ONE_AND_A_HALF),
-                _popUpItem('1.0', PlaybackRate.NORMAL),
-                _popUpItem('0.5', PlaybackRate.HALF),
-                _popUpItem('0.25', PlaybackRate.QUARTER),
-              ],
-            ),
-          ),
           widget.hideFullScreenButton
               ? SizedBox(width: 10)
               : IconButton(

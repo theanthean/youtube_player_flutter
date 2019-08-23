@@ -389,6 +389,7 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
                       widget.aspectRatio,
                       widget.progressColors,
                       widget.flags.hideFullScreenButton,
+                      widget.flags.hidePlaybackRateButton
                     ),
             ),
           if (!widget.flags.hideControls && _showControls.value)

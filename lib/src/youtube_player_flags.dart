@@ -29,6 +29,11 @@ class YoutubePlayerFlags {
   /// Default = false
   final bool hideFullScreenButton;
 
+  /// Hides the playback rate button.
+  ///
+  /// Default = false
+  final bool hidePlaybackRateButton;
+
   /// If true, hides the YouTube player annotation. Default = false
   ///
   /// Forcing annotation to hide is a hacky way. Although this shouldn't be against Youtube TOS, the author doesn't guarantee
@@ -54,6 +59,7 @@ class YoutubePlayerFlags {
     this.showVideoProgressIndicator = true,
     this.isLive = false,
     this.hideFullScreenButton = false,
+    this.hidePlaybackRateButton = false,
     this.forceHideAnnotation = true,
     this.hideThumbnail = false,
     this.disableDragSeek = false,
